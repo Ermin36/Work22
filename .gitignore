@@ -8,5 +8,5 @@ htmlcov/.gitattributes
 #directory
 .venv/
 .idea/
-.__pycache__/
+__pycache__/
 .htmlcov/
