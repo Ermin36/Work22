@@ -1,0 +1,11 @@
+#files
+*.bat
+.coverage
+htmlcov/.gitattributes
+.env
+
+#directory
+.venv/
+.idea/
+.__pycache__/
+.htmlcov/
