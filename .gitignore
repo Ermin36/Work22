@@ -3,9 +3,10 @@
 .coverage
 htmlcov/.gitattributes
 .env
+*.sqlite3
 
 #directory
 .venv/
 .idea/
-.__pycache__/
+__pycache__/
 .htmlcov/
