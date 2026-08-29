@@ -10,3 +10,4 @@ htmlcov/.gitattributes
 .idea/
 __pycache__/
 .htmlcov/
+.run/
