@@ -1,0 +1,41 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "name": "Яблоко",
+        "description": "Свежие яблоки",
+        "image": "image",
+        "category": 4,
+        "price": "12.00",
+        "create_at": "2026-08-29T12:21:41.873Z",
+        "update_at": "2026-08-29T12:21:41.874Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "name": "Бананы",
+        "description": "Свежие бананы",
+        "image": "image",
+        "category": 4,
+        "price": "17.00",
+        "create_at": "2026-08-29T12:21:41.877Z",
+        "update_at": "2026-08-29T12:21:41.878Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+        "name": "Помидоры",
+        "description": "Свежие помидоры",
+        "image": "image",
+        "category": 5,
+        "price": "7.00",
+        "create_at": "2026-08-29T12:21:41.880Z",
+        "update_at": "2026-08-29T12:21:41.881Z"
+    }
+}
+]
