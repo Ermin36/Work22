@@ -1,0 +1,21 @@
+{% extends 'catalog/base.html' %}
+
+{% block header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    {% block title %}
+    <h1 class="display-4">Информация о продукте: {{product.name}}</h1>
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block data %}
+    <div class="row text-center">
+        <div class="col-1">
+            <div class="mt-3 mb-4 m-3">
+                {% for info in product.info %}
+                <ul>{{info | truncatechars:100}}</ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
