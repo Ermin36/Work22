@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, UpdateView
 
 from blog.models import BlogPost
 
@@ -24,3 +25,12 @@ class BlogPostDetailView(DetailView):
         self.object.number_views += 1
         self.object.save()
         return self.object
+
+class BlogPostUpdateView(UpdateView):
+    model = BlogPost
+    context_object_name = 'blog_post'
+    template_name = 'blog/blog_detail.html'
+    success_url = reverse_lazy('blog:blog_list')
+
+    def get_success_url(self):
+        return reverse('blog:blog_list', args=[self.kwargs.get('pk')])
