@@ -19,7 +19,7 @@ def home(request):
             'info': ['Быстрый поиск', 'Качественная цена']
         }
     ]
-    return render(request, 'catalog/home.html', {'cards': data})
+    return render(request, 'home.html', {'cards': data})
 
 def contacts(request):
 
@@ -33,7 +33,7 @@ def contacts(request):
 
         return HttpResponse("Ваши данные получены")
 
-    return render(request, 'catalog/contacts.html')
+    return render(request, 'contacts.html')
 
 class ProductDetail(DetailView):
     model = Product
