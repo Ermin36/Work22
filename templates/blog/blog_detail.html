@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    {% block title %}
+    <h1 class="display-4">Детали блога '{{blog_post.title}}'</h1>
+    {% endblock %}
+</div>
+{% endblock %}
+
+
+{% block data %}
+<article class="py-5">
+    <header class="mb-5 text-center">
+        {% if blog_post.image %}
+        <img src="{{ blog_post.image.url }}" class="img-fluid rounded-4 shadow-lg mb-4"
+             alt="{{ blog_post.content|truncatewords:10 }}" loading="lazy">
+        {% endif %}
+
+        <div class="d-flex justify-content-center gap-4 text-muted small">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v14h20V7L12 2zm0 15-5-2.5L7 12v-2h10v2l-1 2.5-5 2.5z"/>
+                </svg>
+                {{ blog_post.date_posted|date:"j F Y" }}
+            </span>
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 11c-3.06 0-5.5-2.45-5.5-5.5S8.94 5 12 5s5.5 2.45 5.5 5.5S15.06 15.5 12 15.5z"/>
+                </svg>
+                {{ blog_post.number_views }} просмотров
+            </span>
+        </div>
+    </header>
+
+    <section class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <!-- Если context — это HTML-текст статьи -->
+            <div class="content-body">
+                {{ blog_post.content }}
+            </div>
+
+            <hr class="my-5 border-top-0 border-bottom border-dark">
+
+            <a href="/blogs" class="btn btn-outline-secondary">← Вернуться к списку</a>
+            {% url 'blog:blog_update' blog_post.pk as data %}
+            <a href="{{data}}" class="btn btn-outline-primary"> Редактировать</a>
+        </div>
+    </section>
+</article>
+{% endblock %}
