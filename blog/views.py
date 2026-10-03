@@ -29,8 +29,9 @@ class BlogPostDetailView(DetailView):
 class BlogPostUpdateView(UpdateView):
     model = BlogPost
     context_object_name = 'blog_post'
-    template_name = 'blog/blog_detail.html'
+    fields = ('title', 'content')
+    template_name = 'blog/blog_update.html'
     success_url = reverse_lazy('blog:blog_list')
 
     def get_success_url(self):
-        return reverse('blog:blog_list', args=[self.kwargs.get('pk')])
+        return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])

@@ -43,6 +43,8 @@
             <hr class="my-5 border-top-0 border-bottom border-dark">
 
             <a href="/blogs" class="btn btn-outline-secondary">← Вернуться к списку</a>
+            {% url 'blog:blog_update' blog_post.pk as data %}
+            <a href="{{data}}" class="btn btn-outline-primary"> Редактировать</a>
         </div>
     </section>
 </article>

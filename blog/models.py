@@ -5,7 +5,7 @@ from django.db import models
 class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
-    image = models.ImageField(upload_to='images/', default='images/image')
+    image = models.ImageField(upload_to='images/', default='images/image.png')
     date_posted = models.DateTimeField(auto_now_add=True)
     is_published = models.BooleanField(default=False)
     number_views = models.IntegerField(default=0)
