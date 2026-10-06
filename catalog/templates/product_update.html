@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    {% block title %}
+    <h1 class="display-4">Изменение продукта {{ product.name }}</h1>
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block data %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="table-responsive border rounded shadow-sm">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <table class="table mb-0 align-middle">
+                        <tbody>
+                            <!-- Название -->
+                            <tr>
+                                <th scope="row" class="fw-semibold text-end py-4 pe-4" style="width:140px;">Название:</th>
+                                <td class="py-4 ps-0">
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="text-danger small mt-1">{{ form.name.errors }}</div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <!-- Описание -->
+                            <tr>
+                                <th scope="row" class="fw-semibold text-end py-4 pe-4">Описание:</th>
+                                <td class="py-4 ps-0">
+                                    {{ form.description }}
+                                    {% if form.description.errors %}
+                                        <div class="text-danger small mt-1">{{ form.description.errors }}</div>
+                                    {% endif %}
+                                    <small class="text-muted">Максимум 100 символов (автоматически обрежется при сохранении, если нужно)</small>
+                                </td>
+                            </tr>
+
+                            <!-- Цена -->
+                            <tr>
+                                <th scope="row" class="fw-semibold text-end py-4 pe-4">Цена ($):</th>
+                                <td class="py-4 ps-0">
+                                    {{ form.price }}
+                                    {% if form.price.errors %}
+                                        <div class="text-danger small mt-1">{{ form.price.errors }}</div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            <!-- Категория -->
+                            <tr>
+                                <th scope="row" class="fw-semibold text-end py-4 pe-4">Категория:</th>
+                                <td class="py-4 ps-0">
+                                    {{ form.category }}
+                                    {% if form.category.errors %}
+                                        <div class="text-danger small mt-1">{{ form.category.errors }}</div>
+                                    {% endif %}
+                                    <small class="text-muted">Выберите подходящую категорию для товара</small>
+                                </td>
+                            </tr>
+
+                            <!-- Изображение (если есть в форме) -->
+                            {% if form.image %}
+                            <tr>
+                                <th scope="row" class="fw-semibold text-end py-4 pe-4">Фото:</th>
+                                <td class="py-4 ps-0">
+                                    {{ form.image }}
+                                    {% if form.image.errors %}
+                                        <div class="text-danger small mt-1">{{ form.image.errors }}</div>
+                                    {% endif %}
+                                    <small class="text-muted">Допустимы форматы: JPG и PNG</small>
+                                </td>
+                            </tr>
+                            {% endif %}
+
+                            <!-- Кнопки -->
+                            <tr>
+                                <th scope="row" class="fw-semibold text-end py-4 pe-4"></th>
+                                <td class="py-4 ps-0">
+                                    <button type="submit" class="btn btn-primary px-4 py-2 fw-bold">Обновить информацию</button>
+                                    <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-outline-secondary px-4 py-2 ms-2">Отмена</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
