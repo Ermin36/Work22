@@ -1,6 +1,7 @@
 from django.http import HttpResponse
+from django.views.generic import DetailView, ListView
 from django.shortcuts import render
-from .models import Category, Product
+from .models import Product
 
 # Create your views here.
 
@@ -18,7 +19,7 @@ def home(request):
             'info': ['Быстрый поиск', 'Качественная цена']
         }
     ]
-    return render(request, 'catalog/home.html', {'cards': data})
+    return render(request, 'home.html', {'cards': data})
 
 def contacts(request):
 
@@ -32,19 +33,15 @@ def contacts(request):
 
         return HttpResponse("Ваши данные получены")
 
-    return render(request, 'catalog/contacts.html')
+    return render(request, 'contacts.html')
 
-def product_info(request, pk: int):
-    product = Product.objects.get(pk=pk)
-    product_data = {
-        'name': product.name,
-        'info': ['Описание: ' + product.description, 'Цена: ' + str(product.price)],
-    }
-    return render(request, 'catalog/product_detail.html', {'product': product_data})
+class ProductDetail(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
 
-def products_list(request):
-
-    products_data = Product.objects.all()
-
-    return render(request, 'catalog/products.html', {'products': products_data})
+class ProductList(ListView):
+    model = Product
+    template_name = 'catalog/product_list.html'
+    context_object_name = 'products'
 
