@@ -4,6 +4,7 @@
 {% block data %}
 <article class="py-5">
     <header class="mb-5 text-center">
+        {% csrf_token %}
         <!-- Показываем текущую картинку и даем возможность загрузить новую -->
         <div class="position-relative mb-4">
             {% if blog_post.image %}

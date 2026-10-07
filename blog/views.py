@@ -8,7 +8,7 @@ from blog.models import BlogPost
 class BlogPostListView(ListView):
     model = BlogPost
     context_object_name = 'blog_posts'
-    template_name = 'blog/blog_list.html'
+    template_name = 'blog_list.html'
 
     def get_queryset(self):
         return BlogPost.objects.filter(is_published=True)
@@ -17,7 +17,7 @@ class BlogPostListView(ListView):
 class BlogPostDetailView(DetailView):
     model = BlogPost
     context_object_name = 'blog_post'
-    template_name = 'blog/blog_detail.html'
+    template_name = 'blog_detail.html'
 
     def get_object(self, queryset=None):
 
@@ -30,7 +30,7 @@ class BlogPostUpdateView(UpdateView):
     model = BlogPost
     context_object_name = 'blog_post'
     fields = ('title', 'content')
-    template_name = 'blog/blog_update.html'
+    template_name = 'blog_update.html'
     success_url = reverse_lazy('blog:blog_list')
 
     def get_success_url(self):

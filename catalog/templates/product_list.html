@@ -5,6 +5,9 @@
     {% block title %}
     <h1 class="display-4">Список продуктов</h1>
     {% endblock %}
+    <a href="{% url 'catalog:product_create' %}" class="btn btn-primary px-4 py-2 fw-bold">
+            + Создать продукт
+    </a>
 </div>
 {% endblock %}
 

@@ -1,6 +1,9 @@
 from django.http import HttpResponse
-from django.views.generic import DetailView, ListView
+from django.urls import reverse_lazy, reverse
+from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.shortcuts import render
+
+from .forms import ProductForm
 from .models import Product
 
 # Create your views here.
@@ -35,13 +38,31 @@ def contacts(request):
 
     return render(request, 'contacts.html')
 
+
+class ProductCreate(CreateView):
+    model = Product
+    template_name = 'product_create.html'
+    form_class = ProductForm
+    context_object_name = 'product'
+    success_url = reverse_lazy('catalog:product_list')
+
 class ProductDetail(DetailView):
     model = Product
-    template_name = 'catalog/product_detail.html'
+    template_name = 'product_detail.html'
     context_object_name = 'product'
+
+class ProductUpdate(UpdateView):
+    model = Product
+    template_name = 'product_update.html'
+    form_class = ProductForm
+    context_object_name = 'product'
+    success_url = reverse_lazy('catalog:product_list')
+
+    def get_success_url(self):
+        return reverse('catalog:product_detail', args=[self.kwargs.get('pk')])
 
 class ProductList(ListView):
     model = Product
-    template_name = 'catalog/product_list.html'
+    template_name = 'product_list.html'
     context_object_name = 'products'
 
