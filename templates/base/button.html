@@ -6,4 +6,15 @@
         <a class="p-2 btn btn-outline-primary" href="/blogs/">Блог</a>
         <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
     </nav>
+    {% if user.is_authenticated %}
+        <div class="d-flex align-items-center ms-auto">
+            <a class="btn btn-primary ms-2" href="/profile/">Профиль</a>
+            <form method="post" action="{% url 'users:logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger ms-2">Выход</button>
+            </form>
+        </div>
+    {% else %}
+        <a class="btn btn-primary ms-auto" href="/login/">Вход/Регистрация</a>
+    {% endif %}
 </div>

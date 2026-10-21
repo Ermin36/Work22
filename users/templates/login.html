@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    {% block title %}
+    <h1 class="display-4">Вход в SkyStore</h1>
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block data %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-12">
+        <div class="card mb-4 box-shadow shadow-sm border-0" style="border-radius: 12px;">
+            <div class="card-header bg-white border-bottom-0 rounded-top" style="border-radius: 12px 12px 0 0; padding: 20px;">
+                <h4 class="my-0 font-weight-normal text-center text-dark">Войти в аккаунт</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary" style="letter-spacing: 0.5px">Email адрес</label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="text-danger small mt-1">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Пароль -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary" style="letter-spacing: 0.5px">Пароль</label>
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="text-danger small mt-1">{{ form.password.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Ссылка на регистрацию -->
+                    <div class="mb-4 text-center">
+                        <small class="text-muted">Нет аккаунта? <a href="{% url 'users:register' %}" class="text-primary fw-bold">Зарегистрироваться</a></small>
+                    </div>
+
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary rounded-pill shadow-sm" style="padding: 14px; font-weight: 600; letter-spacing: 0.5px;">Войти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

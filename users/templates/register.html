@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    {% block title %}
+    <h1 class="display-4">Регистрация в SkyStore</h1>
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block data %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-12">
+        <div class="card mb-4 box-shadow shadow-sm border-0" style="border-radius: 12px;">
+            <div class="card-header bg-white border-bottom-0 rounded-top" style="border-radius: 12px 12px 0 0; padding: 20px;">
+                <h4 class="my-0 font-weight-normal text-center text-dark">Создать аккаунт</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary"  style="letter-spacing: 0.5px">Email адрес</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Пароль 1 -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary" style="letter-spacing: 0.5px">Пароль</label>
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                            <div class="text-danger small mt-1">{{ form.password1.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Пароль 2 -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary" style="letter-spacing: 0.5px">Подтвердите пароль</label>
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <div class="text-danger small mt-1">{{ form.password2.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Телефон -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary" style="letter-spacing: 0.5px">Номер телефона</label>
+                        {{ form.phone_number }}
+                        {% if form.phone_number.errors %}
+                            <div class="text-danger small mt-1">{{ form.phone_number.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Страна -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-secondary" style="letter-spacing: 0.5px">Страна</label>
+                        {{ form.country }}
+                        {% if form.country.errors %}
+                            <div class="text-danger small mt-1">{{ form.country.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Фото -->
+                    <div class="mb-5">
+                        <label class="form-label fw-bold text-secondary" style="letter-spacing: 0.5px">Фото профиля</label>
+                        {{ form.image }}
+                        {% if form.image.errors %}
+                            <div class="text-danger small mt-1">{{ form.image.errors }}</div>
+                        {% endif %}
+                        <small class="text-muted d-block mt-2">JPG/PNG, до 2 МБ</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary rounded-pill shadow-sm" style="padding: 14px; font-weight: 600; letter-spacing: 0.5px;">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
