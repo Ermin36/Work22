@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.urls import reverse_lazy, reverse
-from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from .forms import ProductForm
 from .models import Product
@@ -47,12 +47,20 @@ class ProductCreate(LoginRequiredMixin, CreateView):
     context_object_name = 'product'
     success_url = reverse_lazy('catalog:product_list')
 
+    def form_valid(self, form):
+        product = form.save(commit=False)
+        product.owner = self.request.user
+        product.is_published = True
+        product.save()
+        return super().form_valid(form)
+
 class ProductDetail(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'product_detail.html'
     context_object_name = 'product'
 
-class ProductUpdate(LoginRequiredMixin, UpdateView):
+class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'catalog.can_unpublish_product'
     model = Product
     template_name = 'product_update.html'
     form_class = ProductForm
@@ -61,6 +69,11 @@ class ProductUpdate(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('catalog:product_detail', args=[self.kwargs.get('pk')])
+
+class ProductDelete(LoginRequiredMixin, DeleteView):
+    model = Product
+    template_name = 'product_delete.html'
+    success_url = reverse_lazy('catalog:product_list')
 
 class ProductList(ListView):
     model = Product

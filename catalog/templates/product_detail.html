@@ -27,9 +27,11 @@
                             <th scope="row" class="fw-semibold text-end py-4 pe-4"></th>
                             <td class="py-4 ps-0">
                                 {% if user.is_authenticated %}
+                                {% if product.owner == user or user.is_superuser or perms.catalog.can_unpublish_product %}
                                 <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-primary px-4 py-2 me-2">
                                     ✏️ Редактировать
                                 </a>
+                                {% endif %}
                                 {% endif %}
                                 <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-secondary px-4 py-2">
                                     ← Назад к списку
