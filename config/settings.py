@@ -94,15 +94,21 @@ DATABASES = {
 }
 
 
-#Mail
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 2525
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = os.getenv('MAIL_USER')
-EMAIL_HOST_PASSWORD = os.getenv('MAIL_PASSWORD')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# Email
+# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
+
+MAILERS = {
+    'default': {
+        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'HOST': 'smtp.mail.ru',
+        'PORT': 2525,
+        'USE_TLS': True,
+        'USE_SSL': False,
+        'HOST_USER': os.getenv('MAIL_USER'),
+        'HOST_PASSWORD': os.getenv('MAIL_PASSWORD'),
+        'DEFAULT_FROM_EMAIL': os.getenv('MAIL_USER')
+    },
+}
 
 
 #Media files
@@ -149,13 +155,3 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-
-
-# Email
-# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
-
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
