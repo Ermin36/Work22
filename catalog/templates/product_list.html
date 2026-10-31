@@ -14,6 +14,32 @@
 {% endblock %}
 
 {% block data %}
+<!-- Выпадающее меню категорий (вне цикла, сверху) -->
+    <div class="mb-4 text-end">
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Категории
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <!-- Ссылка «Все категории» -->
+                <li><a class="dropdown-item" href="{% url 'catalog:product_list' %}">Все товары</a></li>
+                <li><hr class="dropdown-divider"></li>
+
+                <!-- Список категорий из контекста -->
+                {% for category in categories %}
+                    <li>
+                        <a class="dropdown-item"
+                           href="{% url 'catalog:product_category' category.pk %}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     <div class="row text-center">
         {% for item in products %}
         <div class="col-3">
@@ -29,7 +55,7 @@
 
                     <!-- Форма удаления -->
                     {% if user.is_authenticated %}
-                    {% if product.owner == user or user.is_superuser%}
+                    {% if item.owner == user or user.is_superuser%}
                     <form action="{% url 'catalog:product_delete' item.pk %}" method="post" style="display:inline-block;">
                         {% csrf_token %}
                         <button type="submit"
