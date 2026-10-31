@@ -5,7 +5,9 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from .forms import ProductForm
-from .models import Product
+from .models import Product, Category
+from .services import get_product_in_cache
+
 
 # Create your views here.
 
@@ -79,4 +81,30 @@ class ProductList(ListView):
     model = Product
     template_name = 'product_list.html'
     context_object_name = 'products'
+
+    def get_queryset(self):
+        return get_product_in_cache()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
+class ProductCategoryView(ListView):
+    model = Product
+    template_name = 'product_list.html'          # можно вынести в отдельный шаблон, если нужно
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        return Product.objects.filter(category_id=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Передаём категории для выпадающего меню
+        context['categories'] = Category.objects.all()
+
+        # Опционально: передаём текущую категорию, чтобы подсветить её в меню
+        current_category = Category.objects.get(pk=self.kwargs['pk'])
+        context['current_category'] = current_category
+        return context
 
