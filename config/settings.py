@@ -93,6 +93,15 @@ DATABASES = {
     }
 }
 
+#Redis
+CACHE_ENABLED = True
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': os.getenv('URL_REDIS'),
+    }
+}
+
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
